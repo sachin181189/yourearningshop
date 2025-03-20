@@ -735,11 +735,13 @@ class Usercontroller extends Controller
         ->where('cart.user_id',$user_id)
         ->get();
         
-        $addressdata = DB::table('user_address')->select('*')
+        $addressdata = DB::table('user_address')->select('zip')
         ->where('id',$shipping_address)
-        ->first();
-
-        $zip = $addressdata->zip;
+        ->get();
+        foreach($addressdata as $ad)
+        {
+             $zip = $ad->zip;
+        }
         foreach($cartdata as $c)
         {
             if($c->product_type == 2)
@@ -781,47 +783,19 @@ class Usercontroller extends Controller
             {
                 $shipping_charge = 0;
             }
-        // $orderarr = array(
-        //     'order_id'=>$order_id,
-        //     'user_id'=>$user_id,
-        //     'coupon_code'=>'',
-        //     'coupon_amount'=>0,
-        //     'shipping_charge'=>$shipping_charge,
-        //     'payment_method'=>$payment_method,
-        //     'sub_total'=>$subtotal,
-        //     'grand_total'=>$subtotal+$shipping_charge,
-        //     'order_date'=>date("Y-m-d"),
-        //     'prefered_time'=>$prefered_time,
-        //     'shipping_address'=>$shipping_address,
-        //     'billing_address'=>$billing_address,
-        //     'is_same_as_shipping_address'=>$is_same_as_shipping_address
-        //     );
-        $shipping_address = implode(', ', array_filter([$addressdata->address, $addressdata->city, $addressdata->state, $addressdata->zip, $addressdata->address,$addressdata->address], fn($v) => $v !== null)); 
         $orderarr = array(
             'order_id'=>$order_id,
-            'user_name'=>Session::get('user_name'),
-            'user_email'=>Session::get('user_email'),
-            'user_phone'=>Session::get('user_phone'),
+            'user_id'=>$user_id,
             'coupon_code'=>'',
             'coupon_amount'=>0,
             'shipping_charge'=>$shipping_charge,
             'payment_method'=>$payment_method,
             'sub_total'=>$subtotal,
             'grand_total'=>$subtotal+$shipping_charge,
-            'shipping_address'=>$order_id,
-            'billing_address'=>$order_id,
-            'order_status'=>$order_id,
-            'payment_status'=>$order_id,
             'order_date'=>date("Y-m-d"),
-            'delivery_date'=>$order_id,
-            'cancel_date'=>$order_id,
-            'cancel_note'=>$order_id,
             'prefered_time'=>$prefered_time,
-            'assigned_driver'=>$order_id,
-            'driver_name'=>$order_id,
-            'driver_email'=>$order_id,
-            'driver_phone'=>$order_id,
-            'alternate_mobile'=>$order_id,
+            'shipping_address'=>$shipping_address,
+            'billing_address'=>$billing_address,
             'is_same_as_shipping_address'=>$is_same_as_shipping_address
             );
         Session::put('order_id', $order_id);

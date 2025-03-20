@@ -260,6 +260,7 @@ class Productcontroller extends Controller
         ->where('product.subcategory_id',$subcategory_id)
         ->where('product.id','!=',$pid)
         ->orderBy(DB::raw('RAND()'))
+        ->take(10)
         ->get();
         
         $percent_amount = (10 / 100) * $offer_price;
@@ -274,6 +275,8 @@ class Productcontroller extends Controller
         ->where('product.subcategory_id',$subcategory_id)
         // ->where('product.category_id' ,$category)
         ->where('product.id','!=',$pid)
+        ->orderBy(DB::raw('RAND()'))
+        ->take(10)
         ->get();
         
         if(Session::get('user_id'))
@@ -288,6 +291,8 @@ class Productcontroller extends Controller
         $recentviewed = DB::table('recently_viewed_product')->select('*')
         ->where('user_id',$user_id)
         ->where('product_id',$pid)
+        ->orderBy(DB::raw('RAND()'))
+        ->take(10)
         ->get();
         
         if(count($recentviewed) == 0)

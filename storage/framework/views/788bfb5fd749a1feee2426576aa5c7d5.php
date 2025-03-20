@@ -31,10 +31,10 @@ a#scrollUp {
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="company-info">
-                        <img src="{{ URL::asset('logo/logo.png') }}" alt="logo" style="width:50%;" />
-                        <p>{{$company->address}}</p>
-                        <p>Phone: {{$company->phone}}</p>
-                        <p>Email: {{$company->email}}</p>
+                        <img src="<?php echo e(URL::asset('logo/logo.png')); ?>" alt="logo" style="width:50%;" />
+                        <p><?php echo e($company->address); ?></p>
+                        <p>Phone: <?php echo e($company->phone); ?></p>
+                        <p>Email: <?php echo e($company->email); ?></p>
                         <p>Copyright 2022 &copy; YES. All rights reserved.</p>
                     </div>
                 </div>
@@ -58,12 +58,12 @@ a#scrollUp {
                         <h4>Information</h4>
                         <div class="footer-menu">
                             <ul>
-                                <li><a href="{{URL::to('/about-us')}}">About Us</a></li>
-                                <li><a href="{{URL::to('/contact-us')}}">Contact Us</a></li>
-                                <li><a href="{{URL::to('/company-detail')}}">Company Detail</a></li>
-                                <li><a href="{{URL::to('/privacy-policy')}}">Privacy Policy</a></li>
-                                <li><a href="{{URL::to('/term-condition')}}">Terms & Conditions</a></li>
-                                <li><a href="{{URL::to('become-a-vendor')}}">Become a vendor</a></li>
+                                <li><a href="<?php echo e(URL::to('/about-us')); ?>">About Us</a></li>
+                                <li><a href="<?php echo e(URL::to('/contact-us')); ?>">Contact Us</a></li>
+                                <li><a href="<?php echo e(URL::to('/company-detail')); ?>">Company Detail</a></li>
+                                <li><a href="<?php echo e(URL::to('/privacy-policy')); ?>">Privacy Policy</a></li>
+                                <li><a href="<?php echo e(URL::to('/term-condition')); ?>">Terms & Conditions</a></li>
+                                <li><a href="<?php echo e(URL::to('become-a-vendor')); ?>">Become a vendor</a></li>
                             </ul>
                         </div>
                     </div>
@@ -77,7 +77,7 @@ a#scrollUp {
                                 <li><a href="#">Customer Service</a></li>
                                 <li><a href="#">Returns / Exchange</a></li>
                                 <li><a href="#">FAQs</a></li>
-                                <li><a href="{{URL::to('investment-plan')}}">Register Store</a></li>
+                                <li><a href="<?php echo e(URL::to('investment-plan')); ?>">Register Store</a></li>
                             </ul>
                         </div>
                     </div>
@@ -92,9 +92,9 @@ a#scrollUp {
                         </div>
                         <div class="social-icons style-2">
                             <strong>GET IN TOUCH !</strong>
-                            <a href="{{$company->facebook_link}}" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="{{$company->twitter_link}}" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="{{$company->linkdin_link}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="<?php echo e($company->facebook_link); ?>" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="<?php echo e($company->twitter_link); ?>" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="<?php echo e($company->linkdin_link); ?>" target="_blank"><i class="fa fa-linkedin"></i></a>
                             <!--<a href="#"><i class="fa fa-youtube"></i></a>-->
                         </div>
                     </div>
@@ -109,34 +109,34 @@ a#scrollUp {
     
 
     <!-- modernizr js -->
-    <script src="{{ URL::asset('assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/vendor/modernizr-3.6.0.min.js')); ?>"></script>
     <!-- jquery-3.3.1 version -->
-    <script src="{{ URL::asset('assets/js/vendor/jquery-3.2.1.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/vendor/jquery-3.2.1.min.js')); ?>"></script>
     <!-- bootstra.min js -->
-    <script src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/bootstrap.min.js')); ?>"></script>
     <!-- mmenu js -->
-    <script src="{{ URL::asset('assets/js/jquery.mmenu.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/jquery.mmenu.js')); ?>"></script>
     <!-- easing js -->
-    <script src="{{ URL::asset('assets/js/jquery.easing.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/jquery.easing.min.js')); ?>"></script>
     
-    <script src="{{ URL::asset('assets/js/perfect-scrollbar.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/perfect-scrollbar.min.js')); ?>"></script>
     <!---slick-js-->
-    <script src="{{ URL::asset('assets/js/slick.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/slick.min.js')); ?>"></script>
     <!---letteranimation-js-->
-    <script src="{{ URL::asset('assets/js/letteranimation.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/letteranimation.min.js')); ?>"></script>
     <!-- jquery-ui js -->
-    <script src="{{ URL::asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/jquery-ui.min.js')); ?>"></script>
     <!-- jquery.countdown js -->
-    <script src="{{ URL::asset('assets/js/jquery.countdown.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/jquery.countdown.min.js')); ?>"></script>
     <!-- venobox js -->
-    <script src="{{ URL::asset('assets/js/venobox.min.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/venobox.min.js')); ?>"></script>
     <!-- plugins js -->
-    <script src="{{ URL::asset('assets/js/plugins.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/plugins.js')); ?>"></script>
     
-    <script src="{{ URL::asset('assets/js/main.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/main.js')); ?>"></script>
     <!-- main js -->
-    <script src="{{ URL::asset('assets/js/toast.script.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/jquery.toast.js') }}"></script>
+    <script src="<?php echo e(URL::asset('assets/js/toast.script.js')); ?>"></script>
+    <script src="<?php echo e(URL::asset('assets/js/jquery.toast.js')); ?>"></script>
 </body>
 </html>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABQF4WxVVqkPOFfEQkZet90NpveVISj_k&amp;libraries=places"></script>
@@ -156,10 +156,10 @@ function googleTranslateElementInit() {
    {   
        var qty=1;
       $.ajax({
-             url: "{{ route('add-to-cart') }}",
+             url: "<?php echo e(route('add-to-cart')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                  "product_id":product_id,
                  "qty":qty,
                  "cart_variant1":cart_variant1,
@@ -232,7 +232,7 @@ function googleTranslateElementInit() {
             $.toast({heading: 'Error!',text: 'Qty must be greater than 0.',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
        }
         // var datas = {
-        //         "_token": "{{ csrf_token() }}",
+        //         "_token": "<?php echo e(csrf_token()); ?>",
         //          "product_id":product_id,
         //          "qty":qty,
         //          "cart_variant1":cart_variant1,
@@ -240,10 +240,10 @@ function googleTranslateElementInit() {
         //          "tb_type":tb_type
         //         };
       $.ajax({
-             url: "{{ route('add-to-cart') }}",
+             url: "<?php echo e(route('add-to-cart')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                  "product_id":product_id,
                  "qty":qty,
                  "cart_variant1":cart_variant1,
@@ -283,7 +283,7 @@ function googleTranslateElementInit() {
                 else if(res.type=='auth')
                 {
                     // $.toast({heading: 'Error!',text: 'Please login before proceed.',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
-                    location.href="{{URL::to('login')}}";
+                    location.href="<?php echo e(URL::to('login')); ?>";
                 }
                 else
                 {
@@ -298,10 +298,10 @@ function googleTranslateElementInit() {
    function thumbnailAddToCart(product_id,e)
    {   
       $.ajax({
-             url: "{{ route('thumbnail-add-to-cart') }}",
+             url: "<?php echo e(route('thumbnail-add-to-cart')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                  "product_id":product_id,
                  "tb_type":0
                 },
@@ -339,7 +339,7 @@ function googleTranslateElementInit() {
                 else if(res.type=='auth')
                 {
                     // $.toast({heading: 'Error!',text: 'Please login before proceed.',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
-                    location.href="{{URL::to('login')}}";
+                    location.href="<?php echo e(URL::to('login')); ?>";
                 }
                 else
                 {
@@ -356,10 +356,10 @@ function googleTranslateElementInit() {
    {   
       var qty = 1;   
       $.ajax({
-             url: "{{ route('add-to-wishlist') }}",
+             url: "<?php echo e(route('add-to-wishlist')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                  "product_id":product_id
                 },
              error: function() {
@@ -380,7 +380,7 @@ function googleTranslateElementInit() {
                 }
                 else if(data=='auth')
                 {
-                    location.href="{{URL::to('login')}}";
+                    location.href="<?php echo e(URL::to('login')); ?>";
                     // $.toast({heading: 'Error!',text: 'Login required',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
                    
 
@@ -393,10 +393,10 @@ function googleTranslateElementInit() {
    function getWishList()
    {
       $.ajax({
-             url: "{{ route('get-wishlist') }}",
+             url: "<?php echo e(route('get-wishlist')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}"
+                "_token": "<?php echo e(csrf_token()); ?>"
                 },
              error: function() {
                 // swal("OOPS !", "Something is wrong !", "error");
@@ -419,11 +419,11 @@ function googleTranslateElementInit() {
             }
             else
             {
-                var action_button = `<a href="{{URL::to('product-detail')}}/`+val.slug+`" style="cursor:pointer;" class="btn btn-success btn-sm">Check Available Option</a>`;
+                var action_button = `<a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`" style="cursor:pointer;" class="btn btn-success btn-sm">Check Available Option</a>`;
             }
             wishlisthtml += `<tr>
-                        <td class="text-center"><a href="{{URL::to('product-detail')}}/`+val.slug+`"><img class="img-thumbnail" title="`+val.product_name+`" alt="`+val.product_name+`" src="public/product_image/`+val.product_image+`" style="width:100px;"></a></td>
-                        <td class="text-left"><a href="{{URL::to('product-detail')}}/`+val.slug+`">`+val.product_name+`</a></td>
+                        <td class="text-center"><a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`"><img class="img-thumbnail" title="`+val.product_name+`" alt="`+val.product_name+`" src="public/product_image/`+val.product_image+`" style="width:100px;"></a></td>
+                        <td class="text-left"><a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`">`+val.product_name+`</a></td>
                         <td class="text-center">₹`+parseInt(val.offer_price).toFixed(2)+`</td>
                         <td class="text-center">₹`+parseInt(val.price).toFixed(2)+`</td> 
                         <td class="text-center">
@@ -455,10 +455,10 @@ function googleTranslateElementInit() {
    function removeFromWishlist(wid,type=0)
    {
         $.ajax({
-             url: "{{ route('remove-wishlist') }}",
+             url: "<?php echo e(route('remove-wishlist')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'wid':wid
                 },
              error: function() {
@@ -486,10 +486,10 @@ function googleTranslateElementInit() {
    function getCartList(coupon_type='',coupon_code='',coupon_val='')
    {
       $.ajax({
-             url: "{{ route('get-cart') }}",
+             url: "<?php echo e(route('get-cart')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}"
+                "_token": "<?php echo e(csrf_token()); ?>"
                 },
              error: function() {
                 // swal("OOPS !", "Something is wrong !", "error");
@@ -528,8 +528,8 @@ function googleTranslateElementInit() {
             qty = parseInt(qty)+parseInt(val.qty);
             price = parseInt(price)+parseInt(val.offer_price*val.qty);
             carthtml += `<tr>
-                        <td><a href="{{URL::to('product-detail')}}/`+val.slug+`"><img class="img-thumbnail" title="`+val.product_name+`" alt="`+val.product_name+`" src="product_image/`+val.product_image+`" style="width:100px;"></a></td>
-                        <td class="pl-0"><a href="{{URL::to('product-detail')}}/`+val.slug+`">`+val.product_name+`</a></td>
+                        <td><a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`"><img class="img-thumbnail" title="`+val.product_name+`" alt="`+val.product_name+`" src="product_image/`+val.product_image+`" style="width:100px;"></a></td>
+                        <td class="pl-0"><a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`">`+val.product_name+`</a></td>
                         <td class="pl-0">
                         <div style="max-width: 130px;" class="input-group btn-block">
                             <span class="input-group-btn">
@@ -592,10 +592,10 @@ function googleTranslateElementInit() {
    function removeFromCart(cart_id)
    {
         $.ajax({
-             url: "{{ route('remove-cart') }}",
+             url: "<?php echo e(route('remove-cart')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'cart_id':cart_id
                 },
              error: function() {
@@ -622,7 +622,7 @@ function googleTranslateElementInit() {
             $.toast({heading: 'Error!',text: 'Search Key Can Not Be Blank',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
             return;
        }
-       location.href="{{URL::to('product-list/search')}}/"+searchkey;
+       location.href="<?php echo e(URL::to('product-list/search')); ?>/"+searchkey;
    }
    function searchProduct1()
    {
@@ -632,7 +632,7 @@ function googleTranslateElementInit() {
             $.toast({heading: 'Error!',text: 'Search Key Can Not Be Blank',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
             return;
        }
-       location.href="{{URL::to('product-list/search')}}/"+searchkey;
+       location.href="<?php echo e(URL::to('product-list/search')); ?>/"+searchkey;
    }
    function addToShopingList(product_id,cart_variant1='',cart_variant2='',type)
    {   
@@ -658,7 +658,7 @@ function googleTranslateElementInit() {
             $.toast({heading: 'Error!',text: 'Qty must be greater than 0.',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
        }
         var datas = {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                  "product_id":product_id,
                  "qty":qty,
                  "cart_variant1":cart_variant1,
@@ -667,10 +667,10 @@ function googleTranslateElementInit() {
                 };
                 console.log(datas);
       $.ajax({
-             url: "{{ route('add-to-shoping-list') }}",
+             url: "<?php echo e(route('add-to-shoping-list')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                  "product_id":product_id,
                  "qty":qty,
                  "cart_variant1":cart_variant1,
@@ -708,7 +708,7 @@ function googleTranslateElementInit() {
                 else if(res.type=='auth')
                 {
                     // $.toast({heading: 'Error!',text: 'Login required.',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
-                    location.href="{{URL::to('login')}}";
+                    location.href="<?php echo e(URL::to('login')); ?>";
                 }
                 else
                 {
@@ -723,10 +723,10 @@ function googleTranslateElementInit() {
    function getShopingList()
    {
       $.ajax({
-             url: "{{ route('get-shoping-list-data') }}",
+             url: "<?php echo e(route('get-shoping-list-data')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}"
+                "_token": "<?php echo e(csrf_token()); ?>"
                 },
              error: function() {
                 // swal("OOPS !", "Something is wrong !", "error");
@@ -746,8 +746,8 @@ function googleTranslateElementInit() {
             qty = parseInt(qty)+parseInt(val.qty);
             price = parseInt(price)+parseInt(val.offer_price*val.qty);
             shopinghtml += `<tr>
-                        <td><a href="{{URL::to('product-detail')}}/`+val.slug+`"><img class="img-thumbnail" title="`+val.product_name+`" alt="`+val.product_name+`" src="public/product_image/`+val.product_image+`" style="width:100px;"></a></td>
-                        <td class="pl-0"><a href="{{URL::to('product-detail')}}/`+val.slug+`">`+val.product_name+`</a></td>
+                        <td><a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`"><img class="img-thumbnail" title="`+val.product_name+`" alt="`+val.product_name+`" src="public/product_image/`+val.product_image+`" style="width:100px;"></a></td>
+                        <td class="pl-0"><a href="<?php echo e(URL::to('product-detail')); ?>/`+val.slug+`">`+val.product_name+`</a></td>
                         <td class="pl-0">₹`+parseInt(val.offer_price).toFixed(2)+`</td>
                         <td class="pl-0">₹`+parseInt(val.offer_price*val.qty).toFixed(2)+`</td>
                         <td class="pl-0"><button  class="btn btn-danger" title="" data-toggle="tooltip" type="button" data-original-title="Remove" onclick="removeFromShopingList(`+val.id+`);"><i class="fa fa-times-circle"></i></button></td>
@@ -762,10 +762,10 @@ function googleTranslateElementInit() {
    function removeFromShopingList(shoping_id)
    {
         $.ajax({
-             url: "{{ route('remove-from-shoping-list') }}",
+             url: "<?php echo e(route('remove-from-shoping-list')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'shoping_id':shoping_id
                 },
              error: function() {
@@ -788,10 +788,10 @@ function googleTranslateElementInit() {
 function setCurrentPincode(pincode)
 {
         $.ajax({
-             url: "{{ route('set-pincode-session') }}",
+             url: "<?php echo e(route('set-pincode-session')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'pincode':pincode
                 },
              error: function() {
@@ -926,10 +926,10 @@ function errorFunction(){
         $.toast({heading: 'Error!',text: 'Please provide email',position: 'top-center',stack: false,icon: 'error',showHideTransition: 'slide',});
     }
     $.ajax({
-        url: "{{ route('save-newsletter') }}",
+        url: "<?php echo e(route('save-newsletter')); ?>",
         type: 'POST',
         data: {
-        "_token": "{{ csrf_token() }}",
+        "_token": "<?php echo e(csrf_token()); ?>",
         'email':email
         },
         error: function() {
@@ -953,4 +953,4 @@ function errorFunction(){
     });
   }
   
-</script>
+</script><?php /**PATH C:\xampp\htdocs\yourearningshop\resources\views/footer.blade.php ENDPATH**/ ?>
