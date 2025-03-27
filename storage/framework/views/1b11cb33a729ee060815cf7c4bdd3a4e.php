@@ -1,4 +1,4 @@
-@include("header")
+<?php echo $__env->make("header", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" />
@@ -43,8 +43,8 @@
    }
 </style>
 
-    @foreach($user_detail as $ud)
-        @php 
+    <?php $__currentLoopData = $user_detail; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ud): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php 
             $id = $ud->id;
             $fname = $ud->fname;
             $lname = $ud->lname;
@@ -56,8 +56,8 @@
             $image = $ud->image;
             $referral_code = $ud->referral_code;
             $password = $ud->password;
-        @endphp
-    @endforeach
+        ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     
 <div class="container mt-3">
     <!--<ul class="breadcrumb">-->
@@ -65,30 +65,32 @@
     <!--  <li><a href="#">My Account</a></li>-->
     <!--</ul>-->
     <div class="row">
-        @if (count($errors) > 0)
+        <?php if(count($errors) > 0): ?>
             <div class="alert alert-danger">
                 <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
-        @endif
-        @if (session('success'))
+        <?php endif; ?>
+        <?php if(session('success')): ?>
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Success!</strong> {{ session('success') }}
+                <strong>Success!</strong> <?php echo e(session('success')); ?>
+
             </div>
-        @endif
-        @if (session('error'))
+        <?php endif; ?>
+        <?php if(session('error')): ?>
         <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Error!</strong> {{ session('error') }}
+                <strong>Error!</strong> <?php echo e(session('error')); ?>
+
             </div>
-        @endif
+        <?php endif; ?>
         <div class="col-md-12 mb-3 mt-3 text-center">
             <h4>Refer and Earn</h4>
-            <div class="sharethis-inline-share-buttons" data-url="{{URL::to('register')}}?r={{base64_encode($referral_code)}}" data-title="Sharing is great!"></div>
+            <div class="sharethis-inline-share-buttons" data-url="<?php echo e(URL::to('register')); ?>?r=<?php echo e(base64_encode($referral_code)); ?>" data-title="Sharing is great!"></div>
 
         </div>
         <div class="col-md-12">
@@ -105,74 +107,74 @@
                     <div class="container">
                         <div class="row">
                           <div class="col-md-12">
-                                @if(count($order) > 0)
-                                    @foreach($order as $od)
+                                <?php if(count($order) > 0): ?>
+                                    <?php $__currentLoopData = $order; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $od): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="col-md-12">
                                         <div class="card">
                                           <div class="card-body">
                                               <div class="row">
                                                   <div class="col-md-2 pad bol">Order Id</div>
-                                                  <div class="col-md-2 pad">{{$od['order_id']}}</div>
+                                                  <div class="col-md-2 pad"><?php echo e($od['order_id']); ?></div>
                                                   <div class="col-md-2 pad bol">Order Date</div>
-                                                  <div class="col-md-2 pad">{{$od['order_date']}}</div>
+                                                  <div class="col-md-2 pad"><?php echo e($od['order_date']); ?></div>
                                                   <div class="col-md-2 pad bol">Amount</div>
-                                                  <div class="col-md-2 pad">₹{{$od['grand_total']}}</div>
+                                                  <div class="col-md-2 pad">₹<?php echo e($od['grand_total']); ?></div>
                                                   <div class="col-md-2 pad bol">Invoice</div>
                                                   <div class="col-md-2 pad">
-                                                     @if ($od['invoice_file'] == '')
+                                                     <?php if($od['invoice_file'] == ''): ?>
                                                     Not generated
-                                                    @else
-                                                    <a class="btn btn-danger btn-sm" download href="{{ URL::asset('/invoice' )}}/{{ $od['invoice_file'] }}" target="_blank">Download</a>
-                                                    @endif
+                                                    <?php else: ?>
+                                                    <a class="btn btn-danger btn-sm" download href="<?php echo e(URL::asset('/invoice' )); ?>/<?php echo e($od['invoice_file']); ?>" target="_blank">Download</a>
+                                                    <?php endif; ?>
                                                   </div>
                                                   <div class="col-md-2 pad bol">Status</div>
                                                   <div class="col-md-2 pad">
-                                                        @if ($od['order_status'] == 1)
+                                                        <?php if($od['order_status'] == 1): ?>
                                                         
                                                         <span class="label label-success">Confirmed</span>
-                                                        @elseif($od['order_status'] == 2)
+                                                        <?php elseif($od['order_status'] == 2): ?>
                                                         <span class="label label-danger">Packed</span>
-                                                        @elseif($od['order_status'] == 3)
+                                                        <?php elseif($od['order_status'] == 3): ?>
                                                         <span class="label label-info">Shipped</span>
-                                                        @elseif($od['order_status'] == 4)
+                                                        <?php elseif($od['order_status'] == 4): ?>
                                                         <span class="label label-primary">Delivered</span>
-                                                        @elseif($od['order_status'] == 5)
+                                                        <?php elseif($od['order_status'] == 5): ?>
                                                         <span class="label label-warning">Canceled</span>
-                                                        @elseif($od['order_status'] == 6)
+                                                        <?php elseif($od['order_status'] == 6): ?>
                                                         <span class="label label-danger">Returned</span>
-                                                        @endif
+                                                        <?php endif; ?>
                                                   </div>
-                                                  <div class="col-md-2" data-toggle="collapse" data-target="#order_detail{{$od['id']}}"><span class="badge badge-primary" style="cursor:pointer;">View</span></div>
-                                                    <div class="col-md-2"><a class="btn btn-danger btn-sm" href="#" onclick="show_cancel_modal('{{$od['order_id']}}');">Cancel Order</a></div>
+                                                  <div class="col-md-2" data-toggle="collapse" data-target="#order_detail<?php echo e($od['id']); ?>"><span class="badge badge-primary" style="cursor:pointer;">View</span></div>
+                                                    <div class="col-md-2"><a class="btn btn-danger btn-sm" href="#" onclick="show_cancel_modal('<?php echo e($od['order_id']); ?>');">Cancel Order</a></div>
                                               </div>
                                           </div>
-                                          <div class="card-body collapse" id="order_detail{{$od['id']}}" style="border-top: 1px solid lightgray;">
+                                          <div class="card-body collapse" id="order_detail<?php echo e($od['id']); ?>" style="border-top: 1px solid lightgray;">
                                               <h5 style="border-bottom: 1px solid lightgray;padding-block: 10px;"><b>Order Detail</b></h5>
                                                 <div class="row">
                                                       <div class="col-md-2 bol pad">Txn. no</div>
-                                                      <div class="col-md-2 pad">{{$od['payment_id']??'NA'}}</div>
+                                                      <div class="col-md-2 pad"><?php echo e($od['payment_id']??'NA'); ?></div>
                                                       <div class="col-md-2 bol pad">Shipping charge</div>
-                                                      <div class="col-md-2 pad">₹{{$od['shipping_charge']}}</div>
+                                                      <div class="col-md-2 pad">₹<?php echo e($od['shipping_charge']); ?></div>
                                                       <div class="col-md-2 pad bol">Sub total</div>
-                                                      <div class="col-md-2 pad">₹{{$od['sub_total']}}</div>
+                                                      <div class="col-md-2 pad">₹<?php echo e($od['sub_total']); ?></div>
                                                       <div class="col-md-2 pad bol">Payment Status</div>
                                                       <div class="col-md-2 pad">
-                                                          @if($od['payment_status'] == 0)
+                                                          <?php if($od['payment_status'] == 0): ?>
                                                             <span class="label label-danger">Pending</span>
-                                                            @elseif($od['payment_status'] == 1)
+                                                            <?php elseif($od['payment_status'] == 1): ?>
                                                             <span class="label label-success">Paid</span>
-                                                            @elseif($od['payment_status'] == 2)
+                                                            <?php elseif($od['payment_status'] == 2): ?>
                                                             <span class="label label-info">Failed</span>
-                                                            @elseif($od['payment_status'] == 3)
+                                                            <?php elseif($od['payment_status'] == 3): ?>
                                                             <span class="label label-primary">Refunded</span>
-                                                            @endif
+                                                            <?php endif; ?>
                                                       </div>
-                                                      @if(!empty($od['coupon_code']))
+                                                      <?php if(!empty($od['coupon_code'])): ?>
                                                       <div class="col-md-2 pad bol">Coupon code</div>
-                                                      <div class="col-md-2 pad">{{$od['coupon_code']}}</div>
+                                                      <div class="col-md-2 pad"><?php echo e($od['coupon_code']); ?></div>
                                                       <div class="col-md-2 bol">Coupon amount</div>
-                                                      <div class="col-md-2 pad">₹{{$od['coupon_amount']}}</div>
-                                                      @endif
+                                                      <div class="col-md-2 pad">₹<?php echo e($od['coupon_amount']); ?></div>
+                                                      <?php endif; ?>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2 pad bol">Shipping Address</div>
@@ -187,29 +189,29 @@
                                                     </div>
                                                 </div>
                                                 <h5 style="border-bottom: 1px solid lightgray;padding-block: 10px;"><b>Product Detail</b></h5>
-                                                    @foreach($od['order_product'] as $odp)
+                                                    <?php $__currentLoopData = $od['order_product']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $odp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                       <div class="row">
-                                                          <div class="col-md-2 pad"><img src="{{ URL::asset('/product_image' )}}/{{$odp['product_image']}}" style="width:50px;"></div>
-                                                          <div class="col-md-4 pad">{{$odp['product_name']}} (QTY:{{$odp['qty']}})</div>
-                                                          <div class="col-md-2 pad">{{$odp['variant_value1']}} , {{$odp['variant_value2']}}</div>
-                                                          <div class="col-md-2 pad">{{$odp['offer_price']}}</div>
+                                                          <div class="col-md-2 pad"><img src="<?php echo e(URL::asset('/product_image' )); ?>/<?php echo e($odp['product_image']); ?>" style="width:50px;"></div>
+                                                          <div class="col-md-4 pad"><?php echo e($odp['product_name']); ?> (QTY:<?php echo e($odp['qty']); ?>)</div>
+                                                          <div class="col-md-2 pad"><?php echo e($odp['variant_value1']); ?> , <?php echo e($odp['variant_value2']); ?></div>
+                                                          <div class="col-md-2 pad"><?php echo e($odp['offer_price']); ?></div>
                                                           <div class="col-md-2">
-                                                              @if($odp['status'] == 6)
+                                                              <?php if($odp['status'] == 6): ?>
                                                               Return Requested
-                                                              @else
-                                                              <a class="btn btn-danger btn-sm" href="#" onclick="show_return_modal('{{$odp['order_id']}}',{{$odp['product_id']}});">Return</a>
-                                                              @endif
+                                                              <?php else: ?>
+                                                              <a class="btn btn-danger btn-sm" href="#" onclick="show_return_modal('<?php echo e($odp['order_id']); ?>',<?php echo e($odp['product_id']); ?>);">Return</a>
+                                                              <?php endif; ?>
                                                         </div>
                                                           
                                                       </div>
                                                       
-                                                    @endforeach
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             
                                         </div>
                                         </div>
                                     </div>
-                                    @endforeach
-                                @else
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -221,7 +223,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -231,15 +233,15 @@
                             <div class="col-sm-1 hidden-xs column-left"></div>
                             <div class="col-sm-10" id="content">
                                 <h3>Your Personal Details</h3>
-                                <form class="form-horizontal" enctype="multipart/form-data" method="post" action="{{ route('update-profile') }}">
-                                @csrf
+                                <form class="form-horizontal" enctype="multipart/form-data" method="post" action="<?php echo e(route('update-profile')); ?>">
+                                <?php echo csrf_field(); ?>
                                     <fieldset id="account" class="mb-3">
                                         <div class="row mb-2">
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <label for="input-firstname" class="col-sm-3 control-label">First Name</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="input-firstname" placeholder="First Name" value="{{$fname}}" name="fname">
+                                                        <input type="text" class="form-control" id="input-firstname" placeholder="First Name" value="<?php echo e($fname); ?>" name="fname">
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,8 +250,8 @@
                                                     <label for="input-lastname" class="col-sm-3 control-label">Gender</label>
                                                     <div class="col-sm-9">
                                                         <select class="form-control" name="gender">
-                                                            <option value="Female" @if($gender == "Female") selected @endif>Female</option>
-                                                             <option value="Male" @if($gender == "Male") selected @endif>Male</option>
+                                                            <option value="Female" <?php if($gender == "Female"): ?> selected <?php endif; ?>>Female</option>
+                                                             <option value="Male" <?php if($gender == "Male"): ?> selected <?php endif; ?>>Male</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -260,7 +262,7 @@
                                                 <div class="row">
                                                     <label for="input-firstname" class="col-sm-3 control-label">Email</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="input-email" placeholder="First Name" value="{{$email}}" name="email">
+                                                        <input type="text" class="form-control" id="input-email" placeholder="First Name" value="<?php echo e($email); ?>" name="email">
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,10 +270,10 @@
                                                 <div class="row">
                                                     <label for="input-lastname" class="col-sm-3 control-label">Phone</label>
                                                     <div class="col-sm-7">
-                                                        <input type="text" class="form-control" id="input-phone" placeholder="Last Name" value="{{$phone}}" name="phone">
+                                                        <input type="text" class="form-control" id="input-phone" placeholder="Last Name" value="<?php echo e($phone); ?>" name="phone">
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <span class="badge badge-primary" style="cursor:pointer;" onclick="change_mobile_otp({{$phone}});">Change</span>
+                                                        <span class="badge badge-primary" style="cursor:pointer;" onclick="change_mobile_otp(<?php echo e($phone); ?>);">Change</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -282,7 +284,7 @@
                                                     <label for="input-firstname" class="col-sm-3 control-label">Profile Pic</label>
                                                     <div class="col-sm-9">
                                                         <input type="file" class="form-control" name="file">
-                                                        <input type="hidden" value="{{$image}}" name="hidden_image" class="form-control">
+                                                        <input type="hidden" value="<?php echo e($image); ?>" name="hidden_image" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -291,7 +293,7 @@
                                                     <label for="input-firstname" class="col-sm-3 control-label">Aadhar Front</label>
                                                     <div class="col-sm-9">
                                                         <input type="file" class="form-control" name="aadhar_front" />
-                                                        <input type="hidden" value="{{$aadhar_front}}" name="hidden_aadhar_front" class="form-control">
+                                                        <input type="hidden" value="<?php echo e($aadhar_front); ?>" name="hidden_aadhar_front" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -303,7 +305,7 @@
                                                     <label for="input-firstname" class="col-sm-3 control-label">Aadhar Back</label>
                                                     <div class="col-sm-9">
                                                         <input type="file" class="form-control" name="aadhar_back">
-                                                        <input type="hidden" value="{{$aadhar_back}}" name="hidden_aadhar_back" class="form-control">
+                                                        <input type="hidden" value="<?php echo e($aadhar_back); ?>" name="hidden_aadhar_back" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -313,11 +315,11 @@
                                                 <div class="row">
                                                     <label for="input-firstname" class="col-sm-3 control-label"></label>
                                                     <div class="col-sm-9">
-                                                        @if($image == '')
-                                                        <img src="{{ URL::asset('user_image' )}}/default.png" style="width:200px;">
-                                                        @else
-                                                        <img src="{{ URL::asset('user_image' )}}/{{$image}}" style="width:200px;">
-                                                        @endif
+                                                        <?php if($image == ''): ?>
+                                                        <img src="<?php echo e(URL::asset('user_image' )); ?>/default.png" style="width:200px;">
+                                                        <?php else: ?>
+                                                        <img src="<?php echo e(URL::asset('user_image' )); ?>/<?php echo e($image); ?>" style="width:200px;">
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -325,11 +327,11 @@
                                                 <div class="row">
                                                     <label for="input-firstname" class="col-sm-3 control-label"></label>
                                                     <div class="col-sm-9">
-                                                        @if($image == '')
+                                                        <?php if($image == ''): ?>
                                                         <p>Aadhar front image not uploaded</p>
-                                                        @else
-                                                        <img src="{{ URL::asset('customer_aadhar' )}}/{{$aadhar_front}}" style="width:200px;">
-                                                        @endif
+                                                        <?php else: ?>
+                                                        <img src="<?php echo e(URL::asset('customer_aadhar' )); ?>/<?php echo e($aadhar_front); ?>" style="width:200px;">
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -337,11 +339,11 @@
                                                 <div class="row">
                                                     <label for="input-firstname" class="col-sm-3 control-label"></label>
                                                     <div class="col-sm-9">
-                                                        @if($image == '')
+                                                        <?php if($image == ''): ?>
                                                         <p>Aadhar back image not uploaded</p>
-                                                        @else
-                                                        <img src="{{ URL::asset('customer_aadhar' )}}/{{$aadhar_back}}" style="width:200px;">
-                                                        @endif
+                                                        <?php else: ?>
+                                                        <img src="<?php echo e(URL::asset('customer_aadhar' )); ?>/<?php echo e($aadhar_back); ?>" style="width:200px;">
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -356,7 +358,7 @@
                                             <input type="text" class="form-control" id="input-password" placeholder="Password" value="" name="password" autocomplete="new-password">
                                         </div>
                                     </div>
-                                    <input type="hidden" value="{{$password}}" name="old_password">
+                                    <input type="hidden" value="<?php echo e($password); ?>" name="old_password">
                                     <div class="form-group required">
                                         <label for="input-confirm" class="col-sm-3 control-label">Password Confirm</label>
                                         <div class="col-sm-9">
@@ -376,8 +378,8 @@
                     <div class="container">
                         <button class="btn btn-info mb-2" type="button" data-toggle="modal" data-target="#shipModal">Add new address</button>
                         <div class="row">
-                            @if(count($shipping_address) > 0)
-                            @foreach($shipping_address as $sa)
+                            <?php if(count($shipping_address) > 0): ?>
+                            <?php $__currentLoopData = $shipping_address; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="col-md-6">
                                 <div class="card">
                                   <div class="card-body">
@@ -387,8 +389,8 @@
                                           <?php if($sa->is_default == 1) {?>
                                           <span class="badge badge-primary">Default</span>
                                           <?php } ?>
-                                          <span class="badge badge-info edit_add" data-toggle="modal" data-target="#shipModal{{$sa->id}}"><i class="fa fa-pencil"></i> Edit</span>
-                                          <a href="{{URL::to('remove-shipping-address')}}/{{$sa->id}}" class="badge badge-danger delete_add" style="color:#fff!important;" onclick="return confirm('Are you sure you want to delete this address?');"><i class="fa fa-trash"></i> Delete</a>
+                                          <span class="badge badge-info edit_add" data-toggle="modal" data-target="#shipModal<?php echo e($sa->id); ?>"><i class="fa fa-pencil"></i> Edit</span>
+                                          <a href="<?php echo e(URL::to('remove-shipping-address')); ?>/<?php echo e($sa->id); ?>" class="badge badge-danger delete_add" style="color:#fff!important;" onclick="return confirm('Are you sure you want to delete this address?');"><i class="fa fa-trash"></i> Delete</a>
                                           </div>
                                           <div class="col-md-12">
                                           <span><?php echo $sa->address; ?> , <?php echo $sa->city; ?> , <?php echo $sa->state; ?> ,<?php echo $sa->zip; ?></span>
@@ -400,7 +402,7 @@
                                   </div>
                                 </div>
                             </div>
-                            <div id="shipModal{{$sa->id}}" class="modal fade" role="dialog" data-backdrop="false">
+                            <div id="shipModal<?php echo e($sa->id); ?>" class="modal fade" role="dialog" data-backdrop="false">
                           <div class="modal-dialog">
                         
                             <!--shipping update Modal content-->
@@ -410,50 +412,50 @@
                                 <h4 class="modal-title">Update Shipping Address</h4>
                               </div>
                               <div class="modal-body">
-                                    <form action="{{ route('update-shipping-address') }}" method="post">
-                                        @csrf
+                                    <form action="<?php echo e(route('update-shipping-address')); ?>" method="post">
+                                        <?php echo csrf_field(); ?>
                                         <div>
                                           <div class="form-group row">
                                             <label for="input-shipping-firstname" class="col-sm-2 control-label">First Name</label>
                                             <div class="col-sm-10">
-                                              <input type="text" class="form-control" placeholder="First Name" value="{{$sa->fname}}" name="fname">
+                                              <input type="text" class="form-control" placeholder="First Name" value="<?php echo e($sa->fname); ?>" name="fname">
                                             </div>
                                           </div>
-                                          <input type="hidden" value="{{$sa->id}}" name="ship_id">
+                                          <input type="hidden" value="<?php echo e($sa->id); ?>" name="ship_id">
                                           <div class="form-group row">
                                             <label for="input-shipping-lastname" class="col-sm-2 control-label">Last Name</label>
                                             <div class="col-sm-10">
-                                              <input type="text" class="form-control" placeholder="Last Name" value="{{$sa->lname}}" name="lname">
+                                              <input type="text" class="form-control" placeholder="Last Name" value="<?php echo e($sa->lname); ?>" name="lname">
                                             </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="input-shipping-company" class="col-sm-2 control-label">Email</label>
                                             <div class="col-sm-10">
-                                              <input type="email" class="form-control" placeholder="Email" value="{{$sa->email}}" name="email">
+                                              <input type="email" class="form-control" placeholder="Email" value="<?php echo e($sa->email); ?>" name="email">
                                             </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="input-shipping-company" class="col-sm-2 control-label">Phone</label>
                                             <div class="col-sm-10">
-                                              <input type="number" class="form-control" placeholder="Phone" value="{{$sa->phone}}" name="phone">
+                                              <input type="number" class="form-control" placeholder="Phone" value="<?php echo e($sa->phone); ?>" name="phone">
                                             </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="input-shipping-address-1" class="col-sm-2 control-label">Address</label>
                                             <div class="col-sm-10">
-                                              <input type="text" class="form-control" placeholder="Address" value="{{$sa->address}}" name="address">
+                                              <input type="text" class="form-control" placeholder="Address" value="<?php echo e($sa->address); ?>" name="address">
                                             </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="input-shipping-address-2" class="col-sm-2 control-label">City</label>
                                             <div class="col-sm-10">
-                                              <input type="text" class="form-control" placeholder="City" value="{{$sa->city}}" name="city">
+                                              <input type="text" class="form-control" placeholder="City" value="<?php echo e($sa->city); ?>" name="city">
                                             </div>
                                           </div>
                                           <div class="form-group row">
                                             <label for="input-shipping-city" class="col-sm-2 control-label">State</label>
                                             <div class="col-sm-10">
-                                              <input type="text" class="form-control" placeholder="State" value="{{$sa->state}}" name="state">
+                                              <input type="text" class="form-control" placeholder="State" value="<?php echo e($sa->state); ?>" name="state">
                                             </div>
                                           </div>
                                           
@@ -462,8 +464,8 @@
                                                 <div class="col-sm-10">
                                                   <select class="form-control" name="address_type">
                                                     <option value=""> --- Please Select --- </option>
-                                                    <option value="1" @if($sa->type_id == "1") selected @endif>Home</option>
-                                                    <option value="2" @if($sa->type_id == "2") selected @endif>Office</option>
+                                                    <option value="1" <?php if($sa->type_id == "1"): ?> selected <?php endif; ?>>Home</option>
+                                                    <option value="2" <?php if($sa->type_id == "2"): ?> selected <?php endif; ?>>Office</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -471,7 +473,7 @@
                                           <div class="form-group row">
                                             <label for="input-shipping-postcode" class="col-sm-2 control-label">Post Code</label>
                                             <div class="col-sm-10">
-                                              <input type="number" class="form-control" placeholder="Post Code" value="{{$sa->zip}}" name="zip">
+                                              <input type="number" class="form-control" placeholder="Post Code" value="<?php echo e($sa->zip); ?>" name="zip">
                                             </div>
                                           </div>
                                         </div>
@@ -484,8 +486,8 @@
                         
                           </div>
                         </div>
-                            @endforeach
-                            @else
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
                             <div class="col-md-12">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
@@ -497,7 +499,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
                     </div>
                     </div>
                 </div>
@@ -505,7 +507,7 @@
                     <div class="container">
                         <button class="btn btn-info mb-2" type="button" data-toggle="modal" data-target="#billModal">Add new address</button>
                         <div class="row">
-                              @foreach($billing_address as $ba)
+                              <?php $__currentLoopData = $billing_address; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ba): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="col-md-6">
                                     
                                     <div class="card">
@@ -516,8 +518,8 @@
                                               <?php if($ba->is_default == 1) {?>
                                               <span class="badge badge-info">Default</span>
                                               <?php } ?>
-                                              <span class="badge badge-danger edit_add" data-toggle="modal" data-target="#billModal{{$ba->id}}"><i class="fa fa-pencil"></i> Edit</span>
-                                              <a href="{{URL::to('remove-billing-address')}}/{{$ba->id}}" class="badge badge-danger text-right" style="color:#fff!important;" onclick="return confirm('Are you sure you want to delete this address?');"><i class="fa fa-trash"></i> Delete</a>
+                                              <span class="badge badge-danger edit_add" data-toggle="modal" data-target="#billModal<?php echo e($ba->id); ?>"><i class="fa fa-pencil"></i> Edit</span>
+                                              <a href="<?php echo e(URL::to('remove-billing-address')); ?>/<?php echo e($ba->id); ?>" class="badge badge-danger text-right" style="color:#fff!important;" onclick="return confirm('Are you sure you want to delete this address?');"><i class="fa fa-trash"></i> Delete</a>
                                               </div>
                                               <div class="col-md-12">
                                               <span><?php echo $ba->address; ?> , <?php echo $ba->city; ?> , <?php echo $ba->state; ?> ,<?php echo $ba->zip; ?></span>
@@ -529,7 +531,7 @@
                                       </div>
                                     </div>
                                 </div>
-                                <div id="billModal{{$ba->id}}" class="modal fade" role="dialog">
+                                <div id="billModal<?php echo e($ba->id); ?>" class="modal fade" role="dialog">
                                       <div class="modal-dialog">
                                     
                                         <!-- Modal content-->
@@ -539,51 +541,51 @@
                                             <h4 class="modal-title">Update Billing Address</h4>
                                           </div>
                                           <div class="modal-body">
-                                              <form action="{{ route('update-billing-address') }}" method="post">
-                                                  @csrf
+                                              <form action="<?php echo e(route('update-billing-address')); ?>" method="post">
+                                                  <?php echo csrf_field(); ?>
                                                     <div id="billing-new">
                                                       <div class="form-group row">
                                                         <label for="input-billing-firstname" class="col-sm-2 control-label">Full Name</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="Full Name" value="{{$ba->user_name}}" name="user_name">
+                                                          <input type="text" class="form-control" placeholder="Full Name" value="<?php echo e($ba->user_name); ?>" name="user_name">
                                                         </div>
                                                       </div>
-                                                      <input type="hidden" value="{{$ba->id}}" name="bill_id">
+                                                      <input type="hidden" value="<?php echo e($ba->id); ?>" name="bill_id">
                                                       <div class="form-group row">
                                                         <label for="input-billing-email" class="col-sm-2 control-label">Email</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="Email" value="{{$ba->email}}" name="email">
+                                                          <input type="text" class="form-control" placeholder="Email" value="<?php echo e($ba->email); ?>" name="email">
                                                         </div>
                                                       </div>
                                                       <div class="form-group row">
                                                         <label for="input-billing-phone" class="col-sm-2 control-label">Phone</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="Phone" value="{{$ba->phone}}" name="phone">
+                                                          <input type="text" class="form-control" placeholder="Phone" value="<?php echo e($ba->phone); ?>" name="phone">
                                                         </div>
                                                       </div>
                                                       <div class="form-group row">
                                                         <label for="input-billing-address" class="col-sm-2 control-label">Address</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="Address" value="{{$ba->address}}" name="address">
+                                                          <input type="text" class="form-control" placeholder="Address" value="<?php echo e($ba->address); ?>" name="address">
                                                         </div>
                                                       </div>
                                                       <div class="form-group row">
                                                         <label for="input-billing-city" class="col-sm-2 control-label">City</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="City" value="{{$ba->city}}" name="city">
+                                                          <input type="text" class="form-control" placeholder="City" value="<?php echo e($ba->city); ?>" name="city">
                                                         </div>
                                                       </div>
                                                       <div class="form-group row">
                                                         <label for="input-billing-city" class="col-sm-2 control-label">State</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="State" value="{{$ba->state}}" name="state">
+                                                          <input type="text" class="form-control" placeholder="State" value="<?php echo e($ba->state); ?>" name="state">
                                                         </div>
                                                       </div>
                                                       
                                                       <div class="form-group row">
                                                         <label for="input-billing-postcode" class="col-sm-2 control-label">Post Code</label>
                                                         <div class="col-sm-10">
-                                                          <input type="text" class="form-control" placeholder="Post Code" value="{{$ba->zip}}" name="zip">
+                                                          <input type="text" class="form-control" placeholder="Post Code" value="<?php echo e($ba->zip); ?>" name="zip">
                                                         </div>
                                                       </div>
                                                     </div>
@@ -596,7 +598,7 @@
                                     
                                       </div>
                                     </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                     </div>
                 </div>
@@ -615,11 +617,11 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td>{{$level1_user_count}}</td>
-                                    <td>{{$level2_user_count}}</td>
-                                    <td>{{$level3_user_count}}</td>
-                                    <td>{{$level4_user_count}}</td>
-                                    <td>{{$level5_user_count}}</td>
+                                    <td><?php echo e($level1_user_count); ?></td>
+                                    <td><?php echo e($level2_user_count); ?></td>
+                                    <td><?php echo e($level3_user_count); ?></td>
+                                    <td><?php echo e($level4_user_count); ?></td>
+                                    <td><?php echo e($level5_user_count); ?></td>
                                   </tr>
                                 </tbody>
                             </table>
@@ -627,7 +629,7 @@
                     </div>
                     <div class="container">
                         <ul class="breadcrumb" id="connectionBreadcrumb">
-                            <!--<li><a onclick="getConnection('{{$referral_code}}')" style="cursor:pointer"><i class="fa fa-user"></i> {{$referral_code}} ->&nbsp;&nbsp;</a></li>-->
+                            <!--<li><a onclick="getConnection('<?php echo e($referral_code); ?>')" style="cursor:pointer"><i class="fa fa-user"></i> <?php echo e($referral_code); ?> ->&nbsp;&nbsp;</a></li>-->
                         </ul>
                         
                         <div class="row" id="connection">
@@ -657,8 +659,8 @@
                                   <div class="card-body">
                                       <div class="row text-center">
                                           <div class="col-md-12"><b><h4>Total Income</h4></b></div>
-                                          <div class="col-md-12"><b>₹{{$income_data['wallet_amount']}}</b></div>
-                                            <div class="col-md-12" style="margin-top:15px;"><span class="label label-success" onclick="show_payment_modal({{$income_data['transferable_money1']}});" style="background: #28a745;color: #fff;padding: 6px;cursor:pointer;">Transfer To Bank >></span></div>
+                                          <div class="col-md-12"><b>₹<?php echo e($income_data['wallet_amount']); ?></b></div>
+                                            <div class="col-md-12" style="margin-top:15px;"><span class="label label-success" onclick="show_payment_modal(<?php echo e($income_data['transferable_money1']); ?>);" style="background: #28a745;color: #fff;padding: 6px;cursor:pointer;">Transfer To Bank >></span></div>
                                       </div>
                                   </div>
                                 </div>
@@ -668,15 +670,15 @@
                                   <div class="card-body">
                                       <div class="row">
                                           <div class="col-md-6">TDS 10%</div>
-                                          <div class="col-md-6">₹{{$income_data['tds_amount']}}</div>
+                                          <div class="col-md-6">₹<?php echo e($income_data['tds_amount']); ?></div>
                                           <div class="col-md-6">Processing Fee 5%</div>
-                                          <div class="col-md-6">₹{{$income_data['wallet_amount']}}</div>
+                                          <div class="col-md-6">₹<?php echo e($income_data['wallet_amount']); ?></div>
                                           <div class="col-md-6">Purchasing Coupon 10%</div>
-                                          <div class="col-md-6">₹{{$income_data['process_fee']}}</div>
+                                          <div class="col-md-6">₹<?php echo e($income_data['process_fee']); ?></div>
                                           <div class="col-md-6"><b>Transferable Money</b></div>
-                                          <div class="col-md-6">₹{{$income_data['transferable_money']}}</div>
+                                          <div class="col-md-6">₹<?php echo e($income_data['transferable_money']); ?></div>
                                           <div class="col-md-6"><b>Yes Money</b></div>
-                                          <div class="col-md-6">₹{{$income_data['yes_amount']}}</div>
+                                          <div class="col-md-6">₹<?php echo e($income_data['yes_amount']); ?></div>
                                       </div>
                                   </div>
                                 </div>
@@ -704,23 +706,23 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @php
+                                    <?php
                                     $i = 1;
-                                    @endphp
-                                    @foreach($user_bp_settlement as $bps)
+                                    ?>
+                                    <?php $__currentLoopData = $user_bp_settlement; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                   <tr>
-                                    <td>{{$bps->fname}}</td>
-                                    <td>{{$bps->referral_code}}</td>
-                                    <td>{{$bps->settlement_date}}</td>
-                                    <td>{{$bps->settlement_time}}</td>
-                                    <td>{{$bps->amount}}</td>
-                                    <td>{{$bps->level}}</td>
-                                    <td>{{$bps->type}}</td>
+                                    <td><?php echo e($bps->fname); ?></td>
+                                    <td><?php echo e($bps->referral_code); ?></td>
+                                    <td><?php echo e($bps->settlement_date); ?></td>
+                                    <td><?php echo e($bps->settlement_time); ?></td>
+                                    <td><?php echo e($bps->amount); ?></td>
+                                    <td><?php echo e($bps->level); ?></td>
+                                    <td><?php echo e($bps->type); ?></td>
                                   </tr>
-                                @php
+                                <?php
                                 $i++;
-                                @endphp
-                                @endforeach
+                                ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                             </div>
@@ -746,21 +748,21 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @php
+                                    <?php
                                     $i = 1;
-                                    @endphp
-                                    @foreach($user_dp_settlement as $dps)
+                                    ?>
+                                    <?php $__currentLoopData = $user_dp_settlement; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                   <tr>
-                                    <td>{{$dps->vendor_name}}</td>
-                                    <td>{{$dps->settlement_date}}</td>
-                                    <td>{{$dps->settlement_time}}</td>
-                                    <td>{{$dps->amount}}</td>
-                                    <td>{{$dps->type}}</td>
+                                    <td><?php echo e($dps->vendor_name); ?></td>
+                                    <td><?php echo e($dps->settlement_date); ?></td>
+                                    <td><?php echo e($dps->settlement_time); ?></td>
+                                    <td><?php echo e($dps->amount); ?></td>
+                                    <td><?php echo e($dps->type); ?></td>
                                   </tr>
-                                @php
+                                <?php
                                 $i++;
-                                @endphp
-                                @endforeach
+                                ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                             </div>
@@ -772,7 +774,7 @@
     </div>
 </div>
     
-<input type="hidden" id="hidden_referral_code" value="{{$referral_code}}">
+<input type="hidden" id="hidden_referral_code" value="<?php echo e($referral_code); ?>">
 <input type="hidden" id="hidden_referral_code" value="URL::to('/');">
     
 <div id="shipModal" class="modal fade" role="dialog">
@@ -785,8 +787,8 @@
         <h4 class="modal-title">New Shipping Address</h4>
       </div>
       <div class="modal-body">
-            <form action="{{ route('save-shipping-address') }}" method="post">
-                @csrf
+            <form action="<?php echo e(route('save-shipping-address')); ?>" method="post">
+                <?php echo csrf_field(); ?>
                 <div id="shipping-new">
                   <div class="form-group row">
                     <label for="input-shipping-firstname" class="col-sm-2 control-label">First Name</label>
@@ -867,8 +869,8 @@
         <h4 class="modal-title">New Billing Address</h4>
       </div>
       <div class="modal-body">
-          <form action="{{ route('save-billing-address') }}" method="post">
-              @csrf
+          <form action="<?php echo e(route('save-billing-address')); ?>" method="post">
+              <?php echo csrf_field(); ?>
                 <div id="billing-new">
                   <div class="form-group row">
                     <label for="input-billing-firstname" class="col-sm-2 control-label">Full Name</label>
@@ -934,8 +936,8 @@
       </div>
       <div class="modal-body">
           <h4 class="modal-title text-center mb-3">Verify Otp</h4>
-            <form action="{{ route('save-shipping-address') }}" method="post">
-                @csrf
+            <form action="<?php echo e(route('save-shipping-address')); ?>" method="post">
+                <?php echo csrf_field(); ?>
                 <div id="shipping-new">
                   <div class="form-group row">
                     <label for="input_otp" class="col-sm-2 control-label">OTP</label>
@@ -1011,7 +1013,7 @@
             <hr>
           
             <form action="#" method="post">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <div id="transfer_form" class="d-none">
                   <div class="form-group row">
                     <label for="account_holder" class="col-sm-4 control-label">Account Holder Name</label>
@@ -1057,8 +1059,8 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{{ route('user-cancel-order') }}" method="post">
-            @csrf
+        <form action="<?php echo e(route('user-cancel-order')); ?>" method="post">
+            <?php echo csrf_field(); ?>
           <div class="form-group">
             <label for="email">Reason:</label>
             <textarea class="form-control" name="reason" required></textarea>
@@ -1089,8 +1091,8 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form action="{{ route('user-return-product') }}" method="post">
-            @csrf
+        <form action="<?php echo e(route('user-return-product')); ?>" method="post">
+            <?php echo csrf_field(); ?>
           <div class="form-group">
             <label for="email">Reason:</label>
             <textarea class="form-control" name="reason" required></textarea>
@@ -1110,8 +1112,8 @@
   </div>
 </div>
 
-@include("footer")
-<script src="{{ URL::asset('admin/assets/extra-libs/DataTables/datatables.min.js') }}"></script>
+<?php echo $__env->make("footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<script src="<?php echo e(URL::asset('admin/assets/extra-libs/DataTables/datatables.min.js')); ?>"></script>
 <script>
 function validate(evt) 
 {
@@ -1140,10 +1142,10 @@ function sendTransferOtp()
         return false;
     }
         $.ajax({
-             url: "{{ route('send-transfer-otp') }}",
+             url: "<?php echo e(route('send-transfer-otp')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'mobile':mobile
                 },
              error: function() {
@@ -1173,10 +1175,10 @@ function verifyTransferOtp()
     var mobile = $("#input_mobile").val();
     var otp = $("#transfer_otp").val();
         $.ajax({
-             url: "{{ route('verify-transfer-otp') }}",
+             url: "<?php echo e(route('verify-transfer-otp')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'mobile':mobile,
                 'otp':otp,
                 },
@@ -1237,10 +1239,10 @@ function payment_request()
     }
     $("#payment_btn").text('Processing ...').attr('disabled','disabled');
         $.ajax({
-             url: "{{ route('payment-request') }}",
+             url: "<?php echo e(route('payment-request')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'ifsc_code':ifsc_code,
                 'account_holder':account_holder,
                 'account_no':account_no,
@@ -1289,10 +1291,10 @@ function change_mobile_otp(mobile)
         return false;
     }
         $.ajax({
-             url: "{{ route('send-otp') }}",
+             url: "<?php echo e(route('send-otp')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'mobile':mobile
                 },
              error: function() {
@@ -1317,10 +1319,10 @@ function verifyMobileOtp()
     var mobile = $("#input-phone").val();
     var otp = $("#input_otp").val();
         $.ajax({
-             url: "{{ route('change-mobile-no') }}",
+             url: "<?php echo e(route('change-mobile-no')); ?>",
              type: 'POST',
              data: {
-                "_token": "{{ csrf_token() }}",
+                "_token": "<?php echo e(csrf_token()); ?>",
                 'mobile':mobile,
                 'otp':otp,
                 },
@@ -1374,7 +1376,7 @@ function getConnection(referral_code = '')
         type: "POST",
         url: "<?= URL::to('/'); ?>/getConnection",
         data: {
-            "_token": "{{ csrf_token() }}",
+            "_token": "<?php echo e(csrf_token()); ?>",
             referral_code:referral_code
         },
         dataType: 'JSON',
@@ -1385,7 +1387,7 @@ function getConnection(referral_code = '')
                 html += `<div class="col-md-3 mb-3">
                             <div class="card" style="background:linear-gradient(178deg, #64aa2d9e, #ff7c00);box-shadow:3px 5px 10px 2px #000;">
                                 <center>
-                                    <img class="card-img-top mt-3" src="{{ URL::asset('/user_image' )}}/`+val.image+`" alt="Card image cap" style="width:100px;border-radius:50px">
+                                    <img class="card-img-top mt-3" src="<?php echo e(URL::asset('/user_image' )); ?>/`+val.image+`" alt="Card image cap" style="width:100px;border-radius:50px">
                                 </center>
                                 <div class="card-body">
                                     <h5 class="card-title">Name : `+val.fname+`</h5>
@@ -1424,4 +1426,4 @@ function getConnection(referral_code = '')
         }
     });
 }
-</script>
+</script><?php /**PATH C:\xampp\htdocs\yourearningshop\resources\views/my_account.blade.php ENDPATH**/ ?>
